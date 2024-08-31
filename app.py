@@ -12,10 +12,10 @@ def login():
     email = data.get('email')
     password = data.get('password')
     
-    # Print the login credentials to the terminal
+    # Print the login credentials to the terminal (for debugging)
     print(f"Login attempt - Email: {email}, Password: {password}")
 
-    # Simulate success or failure response
+    # Simulate success response
     return jsonify({'success': True})
 
 if __name__ == '__main__':
